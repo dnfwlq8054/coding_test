@@ -1,0 +1,1 @@
+SELECT MAX(DATETIME) from animal_ins
