@@ -33,12 +33,6 @@ int solution(int n, vector<vector<int>> costs) {
         if(a[2] > b[2]) return false;
         else return true;
     });
-    
-    for(auto& v : costs){
-        for(auto n : v)
-            cout << n << " ";
-        cout << endl;
-    }
 
     for(auto& v : costs){
         if(kruskal(v[0], v[1], cycle))
