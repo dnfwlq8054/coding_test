@@ -1,0 +1,1 @@
+SELECT count(DISTINCT name) from animal_ins
