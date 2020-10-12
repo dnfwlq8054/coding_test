@@ -31,9 +31,9 @@ void stimulation(vector<vector<int>>& v, Fish* fish, int shark_x, int shark_y, i
 	int n = cp_v[shark_x][shark_y];
 	cp_v[shark_x][shark_y] = -1;	//먹힘
 
-	// 상어 위치 갱신
+	// 상어 이동방향 설정
 	int shark_dir = cp_fish[n].dir;
-	cp_fish[n].fish_live = false;
+	cp_fish[n].fish_live = false;   //물고기 죽음
 
 	sum += cp_fish[n].fish_number;
 	if (result < sum) result = sum;
@@ -62,6 +62,7 @@ void stimulation(vector<vector<int>>& v, Fish* fish, int shark_x, int shark_y, i
 				cp_fish[i].dir = dir;
 				cp_fish[swap_fish].x = x;
 				cp_fish[swap_fish].y = y;
+
 
 				cp_v[next_x][next_y] = i;
 				cp_v[x][y] = swap_fish;
