@@ -1,44 +1,22 @@
-#include <stdlib.h>
-#include <crtdbg.h>
-#include <string>
-#include <vector>
 #include <iostream>
-#include <cstdio>
-#include <queue>
-#include <thread>
-#include <future>
-#include <ppltasks.h>
-#include <cstdio>
-#include <memory>
-#include <Windows.h>
-#include <shlobj_core.h>
-#include <fstream>
-#include <tchar.h>
-#include <numeric>
-#include <chrono>
-#include <set>
-#include <condition_variable>
-#include <stack>
-#include <algorithm>
-#include <map>
+#include <vector>
 
 using namespace std;
 
 int result = 0;
 
-int dx[8] = { -1, -1, 0, +1, +1, +1, 0, -1 };
-int dy[8] = { 0, -1, -1, -1, 0, +1, +1, +1 };
+const int dx[8] = { -1, -1, 0, +1, +1, +1, 0, -1 };
+const int dy[8] = { 0, -1, -1, -1, 0, +1, +1, +1 };
 
-class Fish {
-public:
-	int x;
-	int y;
-	int dir;
-	int fish_number;
+struct Fish {
+	int x = 0;
+	int y = 0;
+	int dir = 0;
+	int fish_number = 0;
 	bool fish_live = true;
 };
 
-void stimulation(vector<vector<int>>& v, Fish *fish, int shark_x, int shark_y, int sum) {
+void stimulation(vector<vector<int>>& v, Fish* fish, int shark_x, int shark_y, int sum) {
 
 	vector<vector<int>> cp_v(4, vector<int>(4));
 	Fish cp_fish[16];
@@ -56,9 +34,9 @@ void stimulation(vector<vector<int>>& v, Fish *fish, int shark_x, int shark_y, i
 	// 상어 위치 갱신
 	int shark_dir = cp_fish[n].dir;
 	cp_fish[n].fish_live = false;
-	
+
 	sum += cp_fish[n].fish_number;
-	result = max(sum, result);
+	if (result < sum) result = sum;
 
 	//물고기 이동
 	for (int i = 0; i < 16; i++) {
@@ -106,7 +84,8 @@ void stimulation(vector<vector<int>>& v, Fish *fish, int shark_x, int shark_y, i
 
 		if (next_x < 0 || next_x > 3 || next_y < 0 || next_y > 3)
 			break;
-		if(cp_v[next_x][next_y] != -1)
+
+		if (cp_v[next_x][next_y] != -1)
 			stimulation(cp_v, cp_fish, next_x, next_y, sum);
 	}
 }
