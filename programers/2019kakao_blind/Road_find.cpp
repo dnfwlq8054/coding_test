@@ -1,45 +1,45 @@
 #include <string>
 #include <vector>
-#include <iostream>
+#include <memory>
 #include <algorithm>
 
 using namespace std;
 
 class tree{
 private:
-    tree * left;
-    tree * right;
+    unique_ptr<tree> left;
+    unique_ptr<tree> right;
     int name;
-    int y;
+    int x;
 public:
-    tree() : left(NULL), right(NULL) {}
-    tree(int _y, int _name) : left(NULL), right(NULL), y(_y), name(_name) {}
-    void init(int _y, int _name) {
-        y = _y; name = _name;
+    tree() {}
+    tree(int _x, int _name) : x(_x), name(_name) {}
+
+    void init(int _x, int _name) {
+        x = _x;
+        name = _name;
     }
         
-    void insert(int _y, int _name){
-        if(y > _y){
+    void insert(int _x, int _name){
+        if(x > _x){
             if(left == NULL){
-                left = new tree();
-                left->init(_y, _name);
+                left = make_unique<tree>();
+                left->init(_x, _name);
             }else
-                left->insert(_y, _name);
+                left->insert(_x, _name);
             
         }
         else{
             if(right == NULL){
-                right = new tree();
-                right->init(_y, _name);
+                right = make_unique<tree>();
+                right->init(_x, _name);
             }else
-                right->insert(_y, _name);
+                right->insert(_x, _name);
         }
     }
 
     void preorder(vector<vector<int>>& answer){
-        
         answer[0].emplace_back(name);
-        
         if(left != NULL)
             left->preorder(answer);
         
@@ -48,15 +48,24 @@ public:
     }
     
     void postorder(vector<vector<int>>& answer){
-        
         if(left != NULL)
             left->postorder(answer);
         
         if(right != NULL)
             right->postorder(answer);
-
+        
         answer[1].emplace_back(name);
     }
+/* delete
+    void del_tree(){
+        if(left != NULL)
+            left->del_tree();
+        if(right != NULL)
+            right->del_tree();
+        
+        delete left;
+        delete right; 
+    } */
 };
 
 vector<vector<int>> solution(vector<vector<int>> nodeinfo) {
@@ -78,5 +87,6 @@ vector<vector<int>> solution(vector<vector<int>> nodeinfo) {
     t->preorder(answer);
     t->postorder(answer);
     
+    //t->del_tree();
     return answer;
 }
