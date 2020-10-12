@@ -63,7 +63,6 @@ void stimulation(vector<vector<int>>& v, Fish* fish, int shark_x, int shark_y, i
 				cp_fish[swap_fish].x = x;
 				cp_fish[swap_fish].y = y;
 
-
 				cp_v[next_x][next_y] = i;
 				cp_v[x][y] = swap_fish;
 			}
