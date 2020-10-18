@@ -9,11 +9,11 @@ const int dx[8] = { -1, -1, 0, +1, +1, +1, 0, -1 };
 const int dy[8] = { 0, -1, -1, -1, 0, +1, +1, +1 };
 
 struct Fish {
-	int x = 0;
-	int y = 0;
-	int dir = 0;
-	int fish_number = 0;
-	bool fish_live = true;
+	int x = 0;		//물고기 x좌표
+	int y = 0;		//물고기 y좌표
+	int dir = 0;	//물고기 이동방향
+	int fish_number = 0;	//물고기 숫자
+	bool fish_live = true;	
 };
 
 void stimulation(vector<vector<int>>& v, Fish* fish, int shark_x, int shark_y, int sum) {
@@ -28,8 +28,9 @@ void stimulation(vector<vector<int>>& v, Fish* fish, int shark_x, int shark_y, i
 	for (int i = 0; i < 16; i++)
 		cp_fish[i] = fish[i];
 
+	//상어가 물고기 먹음
 	int n = cp_v[shark_x][shark_y];
-	cp_v[shark_x][shark_y] = -1;	//먹힘
+	cp_v[shark_x][shark_y] = -1;	
 
 	// 상어 이동방향 설정
 	int shark_dir = cp_fish[n].dir;
