@@ -12,7 +12,7 @@ int dfs(vector<vector<int>>& v, int x, int y, int h){
     int num = 0;
     num += dfs(v, x, y, h / 2);
     num += dfs(v, x + h / 2, y, h / 2);
-    num += dfs(v, x, y + h / 2, h / 2);
+    num += dfs(v, x, y + h / 2, h / 2);z
     num += dfs(v, x + h / 2, y + h / 2, h / 2);
 
     if(num == 4){
