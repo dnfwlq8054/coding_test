@@ -3,8 +3,8 @@
 
 using namespace std;
 
-int dx[3] = { 0, 0, 1 }; // 오른, 왼, 아래
-int dy[3] = { 1, -1, 0 };
+int dx[4] = { 0, 0, 1, -1 }; // 오른, 왼, 아래, 위
+int dy[4] = { 1, -1, 0, 0 };
 
 void bfs(vector<vector<int>>& v, int X, int Y, vector<vector<bool>>& check) {
 
@@ -14,11 +14,11 @@ void bfs(vector<vector<int>>& v, int X, int Y, vector<vector<bool>>& check) {
 
         if (!check[X][i] && v[X][i] == 1) {
             check[X][i] = true;
-            for (int j = 0; j < 3; j++) {
+            for (int j = 0; j < 4; j++) {
                 int next_X = X + dx[j];
                 int next_Y = Y + dy[j];
 
-                if (next_X < v.size() && next_Y > -1 && next_Y < v[X].size())
+                if (next_X < v.size() && next_X > -1 && next_Y > -1 && next_Y < v[X].size())
                     bfs(v, next_X, next_Y, check);
             }
         }
@@ -27,6 +27,7 @@ void bfs(vector<vector<int>>& v, int X, int Y, vector<vector<bool>>& check) {
 }
 
 int main() {
+    ios::sync_with_stdio(false);
     int T;
     int N, M, K;
     int X, Y;
