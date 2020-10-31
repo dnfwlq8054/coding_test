@@ -28,6 +28,7 @@ int main() {
             v[i][j] = K;
         }
     }
+    
     q.emplace(0, 0);
     q_cost.emplace(1);
 
