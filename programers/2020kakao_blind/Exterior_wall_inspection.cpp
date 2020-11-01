@@ -9,10 +9,8 @@ int solution(int n, vector<int> weak, vector<int> dist) {
     int answer = 99999;
     int len = weak.size();
     
-    for(size_t i = 0; i < len; i++)
+    for(size_t i = 0; i < len - 1; i++)
         weak.emplace_back(weak[i] + n);
-    
-    sort(dist.begin(), dist.end());
     
     do{
         for(int i = 0; i < len; i++){
