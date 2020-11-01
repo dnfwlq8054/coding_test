@@ -20,7 +20,7 @@ int solution(int n, vector<int> weak, vector<int> dist) {
             
             for(size_t j = i + 1; j < len + i; j++){
                 if(cur < weak[j]){
-                    if(idx + 1 == dist.size()) {
+                    if(idx + 1 == dist.size()) {    //친구 다 씀....
                         flag = false;
                         break;
                     }
