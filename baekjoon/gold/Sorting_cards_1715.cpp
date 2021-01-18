@@ -25,17 +25,14 @@ int main() {
 		s.emplace(n);
 	}
 
-	if (N == 1) {
-		cout << 0 << endl;
-		return 0;
-	}
-
 	int len = s.size() - 1;
 	
 	for (int i = 0; i < len; i++) {
+
 		int n = *s.begin();
 		s.erase(s.begin());
 		n += *s.begin();
+
 		s.erase(s.begin());
 		s.emplace(n);
 		answer += n;
