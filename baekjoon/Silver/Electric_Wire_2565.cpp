@@ -10,6 +10,7 @@ int main() {
 	int N, a, b;
 	int result = 0;
 	cin >> N;
+	
 	vector<pair<int, int>> v;
 	v.emplace_back(0, 0);
 	for (int i = 0; i < N; i++) {

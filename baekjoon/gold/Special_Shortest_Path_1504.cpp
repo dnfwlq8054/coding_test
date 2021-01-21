@@ -10,11 +10,10 @@ using namespace std;
 int bfs(vector<vector<pair<int, int>>>& v, int start, int dis) {
 	vector<int> cost(v.size());
 	for (int i = 0; i < cost.size(); i++)
-		cost[i] = 16000000;
+		cost[i] = 160000000;
 	priority_queue<pair<int, int>> q;
 
 	q.emplace(start, 0);
-	cost[start] = 0;
 	while (!q.empty()) {
 		int locate = q.top().first;
 		int locate_cost = q.top().second;
@@ -23,6 +22,7 @@ int bfs(vector<vector<pair<int, int>>>& v, int start, int dis) {
 		if (cost[locate] < locate_cost)
 			continue;
 
+		cost[start] = 0;
 		for (int i = 0; i < v[locate].size(); i++) {
 			int cur = v[locate][i].first;
 			int cur_cost = v[locate][i].second;
@@ -37,7 +37,7 @@ int bfs(vector<vector<pair<int, int>>>& v, int start, int dis) {
 			}
 		}
 	}
-	if (cost[dis] == 0)
+	if (cost[dis] == 160000000)
 		return 160000001;
 	else
 		return cost[dis];
@@ -69,5 +69,6 @@ int main() {
 	else
 		cout << min(answer1, answer2) << endl;
 
+	cout << bfs(v, a, b);
 	return 0;
 }
