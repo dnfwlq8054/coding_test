@@ -6,6 +6,16 @@
 
 using namespace std;
 
+bool fnc(int left, int right, string& s) {
+    while (left < right) {
+        if (s[left++] != s[right--]) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
 int main() {
     int T;
     int N, M, K, H;
@@ -32,18 +42,21 @@ int main() {
             if (s[left] != s[right] && count == 1) {
 
                 if (s[left + 1] == s[right]) {
-                    left++;
-                    count--;
+                    if (fnc(left + 1, right, s)) {
+                        count--;
+                        break;
+                    }
+                }
+
+                if (s[left] == s[right - 1]) {
+                    if (fnc(left, right - 1, s)) {
+                        count--;
+                        break;
+                    }
                 }
                 
-                if (s[left] == s[right - 1]) {
-                    right--;
-                    count--;
-                }
-                else {
-                    flag = false;
-                    break;
-                }
+                flag = false;
+                break;
             }
             else {
                 flag = false;
