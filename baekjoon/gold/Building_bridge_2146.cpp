@@ -24,14 +24,6 @@ struct Edge {
     Edge(int _x, int _y, int _cost) : x(_x), y(_y), cost(_cost){}
 };
 
-struct cmp {
-    bool operator() (const Edge& a, const Edge& b) {
-        return a.cost > b.cost;
-    }
-};
-
-priority_queue<Edge, vector<Edge>, cmp> pq[101];
-
 void mapCheck(vector<vector<int>>& v, vector<vector<bool>>& isFlag_Visit, int x, int y, int flag) {
     for (int i = 0; i < 4; i++) {
         int next_x = x + dx[i];
@@ -43,12 +35,6 @@ void mapCheck(vector<vector<int>>& v, vector<vector<bool>>& isFlag_Visit, int x,
                 v[next_x][next_y] = flag;
                 isVisit[next_x][next_y] = true;
                 mapCheck(v, isFlag_Visit, next_x, next_y, flag);
-            }
-            else {
-                if (!isFlag_Visit[next_x][next_y]) {
-                    isFlag_Visit[next_x][next_y] = true;
-                    pq[flag].emplace(next_x, next_y, 1);
-                }
             }
         }
     }
@@ -78,37 +64,36 @@ int main(){
         }
     }
 
-    for (int i = 1; i < flag; i++) {
-        priority_queue<Edge, vector<Edge>, cmp> cp_pq = pq[i];
-        vector<vector<int>> currentCost(N + 1, vector<int>(N + 1));
+    for (int idx = 1; idx < flag; idx++) {
+        queue<Edge> q;
+        vector<vector<bool>> isFlag_Visit(N, vector<bool>(N));
 
-        while (!cp_pq.empty()) {
-            Edge edge = cp_pq.top();
-            cp_pq.pop();
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
+                if (v[i][j] == idx)
+                    q.emplace(i, j, 0);
+            }
+        }
 
-            int x = edge.x;
-            int y = edge.y;
-            int cost = edge.cost;
+        while (!q.empty()) {
+            int x = q.front().x;
+            int y = q.front().y;
+            int cost = q.front().cost;
+            q.pop();
 
-            if (v[x][y] != 0 && v[x][y] != i) {
+            if (v[x][y] != 0 && v[x][y] != idx) {
                 answer = min(answer, cost - 1);
                 break;
             }
 
-            for (int j = 0; j < 4; j++) {
-                int next_x = x + dx[j];
-                int next_y = y + dy[j];
+            for (int i = 0; i < 4; i++) {
+                int next_x = x + dx[i];
+                int next_y = y + dy[i];
 
                 if (next_x > -1 && next_x < N && next_y > -1 && next_y < N
-                    && v[next_x][next_y] != i) {
-                    if (currentCost[next_x][next_y] == 0) {
-                        currentCost[next_x][next_y] = cost + 1;
-                        cp_pq.emplace(next_x, next_y, cost + 1);
-                    }
-                    else if (currentCost[next_x][next_y] > cost + 1) {
-                        currentCost[next_x][next_y] = cost + 1;
-                        cp_pq.emplace(next_x, next_y, cost + 1);
-                    }
+                    && v[next_x][next_y] != idx && !isFlag_Visit[next_x][next_y]) {
+                    isFlag_Visit[next_x][next_y] = true;
+                    q.emplace(next_x, next_y, cost + 1);
                 }
             }
         }
