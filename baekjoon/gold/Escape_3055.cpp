@@ -43,12 +43,12 @@ int main(void){
             int x = water_queue.front().first;
             int y = water_queue.front().second;
             water_queue.pop();
-            isVisit[x][y] = true;
+
             for (int i = 0; i < 4; i++) {
                 int next_x = x + dx[i];
                 int next_y = y + dy[i];
 
-                if (next_x > -1 && next_x < a && next_y > -1 && next_y < b && !isVisit[next_x][next_y] &&
+                if (next_x > -1 && next_x < a && next_y > -1 && next_y < b &&
                     v[next_x][next_y] == '.') {
                     v[next_x][next_y] = '*';
                     water_queue.emplace(next_x, next_y);
@@ -57,28 +57,29 @@ int main(void){
         }
         
         int len2 = biber.size();
-        cnt++;
 
         for (int idx = 0; idx < len2; idx++) {
             int x = biber.front().first;
             int y = biber.front().second;
             biber.pop();
-            isVisit[x][y] = true;
+
+            if (v[x][y] == 'D') {
+                cout << cnt << endl;
+                return 0;
+            }
+
             for (int i = 0; i < 4; i++) {
                 int next_x = x + dx[i];
                 int next_y = y + dy[i];
 
                 if (next_x > -1 && next_x < a && next_y > -1 && next_y < b && !isVisit[next_x][next_y] &&
-                    (v[next_x][next_y] == '.' || v[next_x][next_y] == 'D')) {
-                    if (v[next_x][next_y] == 'D') {
-                        cout << cnt << endl;
-                        return 0;
-                    }
-
+                    v[next_x][next_y] != '*' && v[next_x][next_y] != 'X') {
+                    isVisit[next_x][next_y] = true;
                     biber.emplace(next_x, next_y);
                 }
             }
         }
+        cnt++;
     }
 
     cout << "KAKTUS" << endl;
