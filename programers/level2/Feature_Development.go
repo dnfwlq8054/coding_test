@@ -5,13 +5,11 @@ func solution(progresses []int, speeds []int) []int {
     
     for idx, n := range progresses {
         var remainPeriod int = 100 - n;
-        var completPeriod int = 0;
-        
+        var completPeriod int = (remainPeriod / speeds[idx]);
+
         if ( remainPeriod % speeds[idx] != 0 ) {
-            completPeriod = (remainPeriod / speeds[idx]) + 1;
-        } else {
-            completPeriod = remainPeriod / speeds[idx];
-        }
+            completPeriod++;
+        } 
         
         if( max < completPeriod ){
             result = append(result, count);
@@ -22,7 +20,6 @@ func solution(progresses []int, speeds []int) []int {
         }
     }
 
-    result = append(result[:0], result[1:]...);
-    result = append(result, count);
-    return result
+    result = append(result[:0], result[1:]... );
+    return append(result, count);
 }
