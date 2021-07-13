@@ -3,34 +3,17 @@
 
 using namespace std;
 
-int dx[4] = {1, -1, 0, 0};
-int dy[4] = {0, 0, 1, -1};
-
-vector<vector<int>> v = {
-    {1, 2, 3},
-    {4, 5, 6},
-    {7, 8, 9},
-    {10, 11, 12}
+vector<pair<int, int>> v = {
+    {3, 1}, {0, 0}, {0, 1}, {0, 2},
+    {1, 0}, {1, 1}, {1, 2},
+    {2, 0}, {2, 1}, {2, 2},
+    {3, 0}, {3, 2}
 };
-
-int dfs(int x, int y, int deep, int num, vector<vector<bool>>& isVisit){
-    for(int i = 0; i < 4; i++){
-        int next_x = x + dx[i];
-        int next_y = y + dy[i];
-        
-        if(next_x >= 0 && next_x < 4 && next_y >= 0 && next_y < 3 &&
-          !isVisit[next_x][next_y]){
-            isVisit[next_x][next_y] = true;
-            if(v[next_x][next_y] == num) return deep;
-            else return dfs(next_x, next_y, deep + 1);
-        }
-    }
-}
 
 string solution(vector<int> numbers, string hand) {
     string answer = "";
     int left = 10;
-    int right = 12;
+    int right = 11;
     
     for( auto& n : numbers ) {
         if( n == 1 || n == 4 || n == 7 ) {
@@ -40,8 +23,26 @@ string solution(vector<int> numbers, string hand) {
             answer += 'R';
             right = n;
         } else {
-            if( n == 0 ) n = 11;
+            int left_locate = 
+                abs(v[n].first - v[left].first) + abs(v[n].second - v[left].second);
+            int right_locate = 
+                abs(v[n].first - v[right].first) + abs(v[n].second - v[right].second);
             
+            if( left_locate == right_locate ) {
+                if( hand == "left" ) {
+                    answer += 'L';
+                    left = n;
+                } else {
+                    answer += 'R';
+                    right = n;
+                }
+            } else if( left_locate < right_locate ) {
+                answer += 'L';
+                left = n;
+            } else {
+                answer += 'R';
+                right = n;
+            }
         }
     }
     
