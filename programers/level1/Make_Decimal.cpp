@@ -12,7 +12,8 @@ void dfs(vector<int>& nums, int idx, int deep, int sum){
         if(!decimal[sum]){
             answer++;
             return;
-        }
+        } else
+            return;
     }
     
     for(int i = idx; i < nums.size(); i++){
