@@ -9,11 +9,8 @@ int answer = 0;
 
 void dfs(vector<int>& nums, int idx, int deep, int sum){
     if(deep == 3){
-        if(!decimal[sum]){
-            answer++;
-            return;
-        } else
-            return;
+        if(!decimal[sum]) answer++;
+        return;
     }
     
     for(int i = idx; i < nums.size(); i++){
