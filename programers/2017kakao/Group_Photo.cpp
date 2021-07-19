@@ -29,6 +29,7 @@ int solution(int n, vector<string> data) {
     
     do {
         bool flag = true;
+        
         for(auto& s : data) {
             int a = find_char(v, s[0]);
             int b = find_char(v, s[2]);
@@ -40,7 +41,9 @@ int solution(int n, vector<string> data) {
             
             if(!flag) break;
         }
+
         if(flag) answer++;
+
     } while (next_permutation(v.begin(), v.end()));
 
     return answer;
