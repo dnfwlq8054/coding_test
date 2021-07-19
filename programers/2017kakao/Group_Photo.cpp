@@ -11,31 +11,16 @@ int find_char(vector<char>& v, char c){
     return -1;
 }
 
-bool func1(vector<char>& v, string& s){
-    int a = find_char(v, s[0]);
-    int b = find_char(v, s[2]);
-    int num = (s[4] - '0') + 1;
-    
-    if(abs(a - b) == num) return true;
-    else return false;
+bool func1(int a, int b, int num){
+    return abs(a - b) == num ? true : false;
 }
 
-bool func2(vector<char>& v, string& s){
-    int a = find_char(v, s[0]);
-    int b = find_char(v, s[2]);
-    int num = (s[4] - '0') + 1;
-    
-    if(abs(a - b) < num) return true;
-    else return false;
+bool func2(int a, int b, int num){
+    return abs(a - b) < num ? true : false;
 }
 
-bool func3(vector<char>& v, string& s){
-    int a = find_char(v, s[0]);
-    int b = find_char(v, s[2]);
-    int num = (s[4] - '0') + 1;
-    
-    if(abs(a - b) > num) return true;
-    else return false;
+bool func3(int a, int b, int num){
+    return abs(a - b) > num ? true : false;
 }
 
 int solution(int n, vector<string> data) {
@@ -45,9 +30,13 @@ int solution(int n, vector<string> data) {
     do {
         bool flag = true;
         for(auto& s : data) {
-            if(s[3] == '=') flag = func1(v, s);
-            else if(s[3] == '<') flag = func2(v, s);
-            else flag = func3(v, s);
+            int a = find_char(v, s[0]);
+            int b = find_char(v, s[2]);
+            int num = (s[4] - '0') + 1;
+
+            if(s[3] == '=') flag = func1(a, b, num);
+            else if(s[3] == '<') flag = func2(a, b, num);
+            else flag = func3(a, b, num);
             
             if(!flag) break;
         }
