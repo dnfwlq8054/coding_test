@@ -1,6 +1,6 @@
 import java.lang.*;
 
-public class Ant_Sequence{
+public class AntSequence{
     public static void main(String[] args){
         int n = 8;
         String answer = "1";
