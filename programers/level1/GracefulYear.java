@@ -1,4 +1,4 @@
-public class Graceful_Year{
+public class GracefulYear{
 
     static boolean checkYear(int year){
         boolean[] isCheck = new boolean[10];
