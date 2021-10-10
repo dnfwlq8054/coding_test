@@ -29,18 +29,17 @@ int solution(int n, vector<vector<int>> wires) {
     }
     
     for(int i = 0; i < n; i++){
-        for(auto n : graph[i + 1]){
+        for(auto idx : graph[i + 1]){
             vector<bool> isVisit(101);
-            isflag[i + 1] = true; isflag[n] = true;
+            isflag[i + 1] = true; isflag[idx] = true;
+            
             if(!isVisit[i + 1]) {
                 isVisit[i + 1] = true;
                 int n1 = 1 + dfs(graph, isVisit, i + 1);
-                
-                isVisit[n] = true;
-                int n2 = 1 + dfs(graph, isVisit, n);
-                answer = min(answer, abs(n1 - n2));
+                answer = min(answer, abs((n - n1) - n1));
             }
-            isflag[i + 1] = false; isflag[n] = false;
+            
+            isflag[i + 1] = false; isflag[idx] = false;
         }
     }
     return answer;
