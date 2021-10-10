@@ -36,7 +36,7 @@ int solution(int n, vector<vector<int>> wires) {
             if(!isVisit[i + 1]) {
                 isVisit[i + 1] = true;
                 int n1 = 1 + dfs(graph, isVisit, i + 1);
-                answer = min(answer, abs((n - n1) - n1));
+                answer = min(answer, abs(n - (n1 * 2)));
             }
             
             isflag[i + 1] = false; isflag[idx] = false;
