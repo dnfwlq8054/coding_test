@@ -8,11 +8,11 @@ bool isflag[101];
 int dfs(vector<vector<int>>& graph, vector<bool>& isVisit, int idx){
     int result = 0;
     
-    for(auto& n : graph[idx]){
-        if(isflag[idx] && isflag[n]) continue;
-        if(!isVisit[n]){
-            isVisit[n] = true;
-            result += dfs(graph, isVisit, n);
+    for(auto& next : graph[idx]){
+        if(isflag[idx] && isflag[next]) continue;
+        if(!isVisit[next]){
+            isVisit[next] = true;
+            result += dfs(graph, isVisit, next);
             result++;
         }
     }
@@ -30,16 +30,16 @@ int solution(int n, vector<vector<int>> wires) {
         graph[v[1]].emplace_back(v[0]);
     }
     
-    for(int i = 0; i < n; i++){
-        for(auto next : graph[i + 1]){
+    for(int idx = 1; idx <= n; idx++){
+        for(auto next : graph[idx]){
             vector<bool> isVisit(101);
-            isflag[i + 1] = true; isflag[next] = true;
-            isVisit[i + 1] = true;
+            isflag[idx] = true; isflag[next] = true;
+            isVisit[idx] = true;
             
-            int result = 1 + dfs(graph, isVisit, i + 1);
+            int result = 1 + dfs(graph, isVisit, idx);
             answer = min(answer, abs(n - (result * 2)));
             
-            isflag[i + 1] = false; isflag[next] = false;
+            isflag[idx] = false; isflag[next] = false;
         }
     }
     
